@@ -14,12 +14,12 @@ from layerAnalysis import Layer
 
 
 class MultilayerAnalysis:
-    def __init__(self, designWaveLength, thicknessDividerCoefficient, refractiveIndexArr, isThicknessPredefinedArr, thicknessArr, wavelength=1):
+    def __init__(self, designWaveLength, thicknessDividerCoefficient, refractiveIndexArr, isThicknessAutoCalculatedArr, thicknessArr, wavelength=1):
         self.designWaveLength = designWaveLength
         self.thicknessDividerCoefficient = thicknessDividerCoefficient
         self.wavelength = wavelength
         self.refractiveIndexArr = refractiveIndexArr
-        self.isThicknessPredefinedArr = isThicknessPredefinedArr
+        self.isThicknessAutoCalculatedArr = isThicknessAutoCalculatedArr
         self.thicknessArr = thicknessArr
         self.matrixTypeArr = np.array([1, 1, 1, 1, 3, 2, 1])
         self.layerTypes = []
@@ -32,10 +32,10 @@ class MultilayerAnalysis:
                                          wavelength=wavelength,
                                          refractiveIndex=refractiveIndexArr[k],
                                          matrixType=self.matrixTypeArr[k],
-                                         thickness=thicknessArr[k] if isThicknessPredefinedArr[k] else (designWaveLength / (thicknessDividerCoefficient * refractiveIndexArr[k]))))
-            self.layerMatrixTypes.append(
-                self.layerTypes[k].LayerMatrixReturnCal())
+                                         thickness=(designWaveLength / (thicknessDividerCoefficient * refractiveIndexArr[k])) if isThicknessAutoCalculatedArr[k] else thicknessArr[k]))
+            self.layerMatrixTypes.append(self.layerTypes[k].LayerMatrixReturnCal())
 
+    #TODO Parentheses inside parentheses mechanism can be add with recursive.
     def TotalSystemMatrixCal(self, multilayerSequence):
         totalSystemMatrix = self.CharToLayerMatrix(multilayerSequence[0])
         self.firstLayerRefractiveIndex = self.CharToLayer(
@@ -139,7 +139,7 @@ class MultilayerAnalysis:
                                           thicknessDividerCoefficient=self.thicknessDividerCoefficient,
                                           wavelength=wavelengthCounter,
                                           refractiveIndexArr=self.refractiveIndexArr,
-                                          isThicknessPredefinedArr=self.isThicknessPredefinedArr,
+                                          isThicknessAutoCalculatedArr=self.isThicknessAutoCalculatedArr,
                                           thicknessArr=self.thicknessArr)
             totalSystemMatrix = instance.TotalSystemMatrixCal(multilayerSequence)
             reflectance.append(instance.ReflectanceCal(totalSystemMatrix))
@@ -155,3 +155,4 @@ class MultilayerAnalysis:
         axs[0].grid(True)
         axs[1].grid(True)
         axs[2].grid(True)
+        fig.show()
