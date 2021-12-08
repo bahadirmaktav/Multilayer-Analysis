@@ -80,7 +80,7 @@ def CalculateThicknessAuto():
 ws = tk.Tk()
 ws.title('Multilayer Analysis')
 ws.geometry('750x400')
-ws.iconbitmap("C:/Users/Bahadir/Desktop/Bahadır Uni/ELE401 Graduation Project I/Codes/Multilayer Analysis - Graduation Project/Multilayer Analysis Code - Current Version/multilayerAnalysisIcon2.ico")
+ws.iconbitmap("C:/Users/Bahadir/Desktop/BahadırUni/ELE401GraduationProject_I/Codes/MultilayerAnalysis_GraduationProject/MultilayerAnalysisCode_CurrentVersion/multilayerAnalysisIcon2.ico")
 
 
 tk.Label(ws, text=' ').grid(row=0, sticky=tk.W)

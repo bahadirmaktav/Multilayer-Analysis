@@ -171,7 +171,7 @@ class MultilayerAnalysis:
             reflectance.append(instance.ReflectanceCal(totalSystemMatrix))
             transmittance.append(instance.TransmittanceCal(totalSystemMatrix))
             absorptance.append(instance.AbsorptanceCal(totalSystemMatrix))
-        fig, axs = plt.subplots(3, figsize=(18, 14))
+        fig, axs = plt.subplots(3, figsize=(10, 8))
         axs[0].plot(wavelengthRange, reflectance, 'tab:blue')
         axs[1].plot(wavelengthRange, transmittance, 'tab:green')
         axs[2].plot(wavelengthRange, absorptance, 'tab:orange')
