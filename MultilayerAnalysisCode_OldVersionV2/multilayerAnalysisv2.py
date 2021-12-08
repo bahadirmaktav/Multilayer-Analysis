@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.lib.index_tricks import IndexExpression
-from layerAnalysis import Layer
+from layerAnalysisv2 import Layer
 
 # Layer Types
 # 0 -> H -> High Index Layer Translational Matrix
