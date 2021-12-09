@@ -32,7 +32,10 @@ def Analyze():
             refractiveIndexArr.append(complex(refraciveIndexVars[i].get()))
             isThicknessAutoCalculatedArr.append(isThicknessAutoCalculatedVars[i].get())
             thicknessArr.append(float(thicknessVars[i].get()))
-        multilayerSequence = multilayerSequenceStr.get()
+        multilayerSequence = "A"
+        for k in range(len(multilayerSequenceStr.get())):
+                multilayerSequence += multilayerSequenceStr.get()[k]
+        multilayerSequence += "S"
         stepSize = float(stepSizeStr.get())
         wavelengthRange = np.arange(float(wavelengthRangeLowStr.get()),float(wavelengthRangeHighStr.get()),stepSize)
         MultilayerAnalysis(designWaveLength=designWavelength,
@@ -79,7 +82,7 @@ def CalculateThicknessAuto():
 
 ws = tk.Tk()
 ws.title('Multilayer Analysis')
-ws.geometry('750x400')
+ws.geometry('850x400')
 ws.iconbitmap("C:/Users/Bahadir/Desktop/BahadırUni/ELE401GraduationProject_I/Codes/MultilayerAnalysis_GraduationProject/MultilayerAnalysisCode_CurrentVersion/multilayerAnalysisIcon2.ico")
 
 
@@ -94,14 +97,17 @@ tk.Label(ws, text='First Layer                             : A').grid(row=7, sti
 tk.Label(ws, text='Last Layer                             : S').grid(row=8, sticky=tk.W, padx=8)
 
 tk.Label(ws, text='Refractive Index').grid(row=0, column=1)
-tk.Label(ws, text='Is Thickness Auto Calculated?').grid(row=0, column=3)
-tk.Label(ws, text='Thickness (nm)').grid(row=0, column=2)
+#tk.Label(ws, text='Is Thickness Auto Calculated?').grid(row=0, column=3, sticky=tk.W)
+tk.Label(ws, text='Thickness (nm)    --    Is Thickness Auto Calculated?').grid(row=0, column=2)
 
 tk.Label(ws, text='Design Wavelength (nm)').grid(row=9, column=0, padx=8,pady=2, sticky=tk.W)
 tk.Label(ws, text='Thickness Divider Coefficient').grid(row=10, column=0, padx=8,pady=2, sticky=tk.W)
 tk.Label(ws, text='Wavelength Range (nm)').grid(row=11, column=0, padx=8,pady=2, sticky=tk.W)
 tk.Label(ws, text='Step Size In 1nm Wavelength').grid(row=12, column=0, padx=8,pady=2, sticky=tk.W)
 tk.Label(ws, text='Multilayer Sequence').grid(row=13, column=0, padx=8,pady=2, sticky=tk.W)
+
+tk.Label(ws, text='A').grid(row=13, column=1, padx=8,pady=2,sticky=tk.E)
+tk.Label(ws, text='S').grid(row=13, column=3, padx=8,pady=2,sticky=tk.W)
 
 designWavelengthStr = tk.StringVar()
 designWavelengthEntry = tk.Entry(ws, width=30, justify='center',textvariable=designWavelengthStr)
@@ -124,8 +130,8 @@ stepSizeEntry = tk.Entry(ws, width=30, justify='center',textvariable=stepSizeStr
 stepSizeEntry.grid(column=1, row=12, sticky=tk.W)
 
 multilayerSequenceStr = tk.StringVar()
-multilayerSequenceEntry = tk.Entry(ws, width=91, justify='center',textvariable=multilayerSequenceStr)
-multilayerSequenceEntry.grid(column=1, row=13, sticky=tk.W,columnspan=3)
+multilayerSequenceEntry = tk.Entry(ws, width=70, justify='center',textvariable=multilayerSequenceStr)
+multilayerSequenceEntry.grid(column=2, row=13, sticky=tk.W,columnspan=1)
 
 refraciveIndexEntries = []
 refraciveIndexVars = [tk.StringVar(),tk.StringVar(),tk.StringVar(),tk.StringVar(),tk.StringVar(),tk.StringVar(),tk.StringVar(),tk.StringVar()]
@@ -135,16 +141,16 @@ thicknessEntries = []
 thicknessVars = [tk.StringVar(),tk.StringVar(),tk.StringVar(),tk.StringVar(),tk.StringVar(),tk.StringVar(),tk.StringVar(),tk.StringVar()]
 
 analyzeButton = tk.Button(ws,width=15,text="Analyze",command=Analyze)
-analyzeButton.grid(column=1,row=14,pady=5,columnspan=2)
+analyzeButton.grid(column=2,row=14,pady=8)
 
 for i in range(8):
     refraciveIndexEntries.append(tk.Entry(ws, width=30, justify='center',textvariable=refraciveIndexVars[i]))
     refraciveIndexEntries[i].grid(column=1, row=1+i, sticky=tk.W)
 
-    isThicknessAutoCalculatedEntries.append(tk.Checkbutton(ws, width=30, justify='center',variable=isThicknessAutoCalculatedVars[i],command=IsThicknessAutoCalculatedEntriesChanged))
+    isThicknessAutoCalculatedEntries.append(tk.Checkbutton(ws, width=30, justify='center',variable=isThicknessAutoCalculatedVars[i],command=IsThicknessAutoCalculatedEntriesChanged,anchor='w'))
     isThicknessAutoCalculatedEntries[i].grid(column=3, row=1+i, sticky=tk.W)
 
-    thicknessEntries.append(tk.Entry(ws, width=30, justify='center',textvariable=thicknessVars[i]))
+    thicknessEntries.append(tk.Entry(ws, width=70, justify='center',textvariable=thicknessVars[i]))
     thicknessEntries[i].grid(column=2, row=1+i, sticky=tk.W)
 
 InitializeValues()
