@@ -175,8 +175,8 @@ class MultilayerAnalysis:
         axs[0].plot(wavelengthRange, reflectance, 'tab:blue')
         axs[1].plot(wavelengthRange, transmittance, 'tab:green')
         axs[2].plot(wavelengthRange, absorptance, 'tab:orange')
-        axs[0].set(ylabel='Reflectance')
-        axs[1].set(ylabel='Transmittance')
+        axs[0].set(ylabel='Reflectance',xlabel='Wavelength(nm)')
+        axs[1].set(ylabel='Transmittance',xlabel='Wavelength(nm)')
         axs[2].set(ylabel='Absorptance', xlabel='Wavelength(nm)')
         
         axs[0].grid(True)
