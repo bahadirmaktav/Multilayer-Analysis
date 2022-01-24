@@ -1,5 +1,6 @@
+import numpy as np
 import matplotlib.pyplot as plt
-import layerAnalysis as la
+from layerAnalysis import Layer
 
 # Layer Types
 # 0 -> H -> High Index Layer Translational Matrix
@@ -20,13 +21,13 @@ class MultilayerAnalysis:
         self.refractiveIndexArr = refractiveIndexArr
         self.isThicknessAutoCalculatedArr = isThicknessAutoCalculatedArr
         self.thicknessArr = thicknessArr
-        self.matrixTypeArr = la.array([1,1,1,1,1,1,3,2])
+        self.matrixTypeArr = np.array([1,1,1,1,1,1,3,2])
         self.layerTypes = []
         self.layerMatrixTypes = []
         self.multilayerSequence = multilayerSequence,
         for k in range(8):
             if(self.IndexToChar(k) in multilayerSequence):
-                self.layerTypes.append(la.Layer(designWaveLength=designWaveLength,
+                self.layerTypes.append(Layer(designWaveLength=designWaveLength,
                                              thicknessDividerCoefficient=thicknessDividerCoefficient,
                                              wavelength=wavelength,
                                              refractiveIndex=refractiveIndexArr[k],
@@ -34,13 +35,13 @@ class MultilayerAnalysis:
                                              thickness=(designWaveLength / (thicknessDividerCoefficient * refractiveIndexArr[k]).real) if isThicknessAutoCalculatedArr[k] else thicknessArr[k]))
                 self.layerMatrixTypes.append(self.layerTypes[k].LayerMatrixReturnCal())
             else:
-                self.layerTypes.append(la.Layer(1,1,1,1,1))
-                self.layerMatrixTypes.append(la.ones((2,2),dtype=complex))
+                self.layerTypes.append(Layer(1,1,1,1,1))
+                self.layerMatrixTypes.append(np.ones((2,2),dtype=complex))
         self.firstLayerRefractiveIndex = self.CharToLayer(multilayerSequence[0]).refractiveIndex
         self.lastLayerRefractiveIndex = self.CharToLayer(multilayerSequence[len(multilayerSequence)-1]).refractiveIndex
 
     def TotalSystemMatrixCal(self, multilayerSequence):
-        totalSystemMatrix = la.identity(2,dtype=complex)
+        totalSystemMatrix = np.identity(2,dtype=complex)
         index = 0
         openParentheses = 0
         while index < len(multilayerSequence):
@@ -97,7 +98,7 @@ class MultilayerAnalysis:
         elif(char == 'S'):
             return self.layerMatrixTypes[7]
         else:
-            return la.identity(2,dtype=complex)
+            return np.identity(2,dtype=complex)
 
     def CharToLayer(self, char):
         if(char == 'H'):
@@ -117,7 +118,7 @@ class MultilayerAnalysis:
         elif(char == 'S'):
             return self.layerTypes[7]
         else:
-            return la.Layer(1,1,1,1,1)
+            return Layer(1,1,1,1,1)
 
     def IndexToChar(self, k):
         if(k == 0):
@@ -174,9 +175,10 @@ class MultilayerAnalysis:
         axs[0].plot(wavelengthRange, reflectance, 'tab:blue')
         axs[1].plot(wavelengthRange, transmittance, 'tab:green')
         axs[2].plot(wavelengthRange, absorptance, 'tab:orange')
-        axs[0].title.set_text('Reflectance - Wavelength')
-        axs[1].title.set_text('Transmittance - Wavelength')
-        axs[2].title.set_text('Absorptance - Wavelength')
+        axs[0].set(ylabel='Reflectance',xlabel='Wavelength(nm)')
+        axs[1].set(ylabel='Transmittance',xlabel='Wavelength(nm)')
+        axs[2].set(ylabel='Absorptance', xlabel='Wavelength(nm)')
+        
         axs[0].grid(True)
         axs[1].grid(True)
         axs[2].grid(True)
