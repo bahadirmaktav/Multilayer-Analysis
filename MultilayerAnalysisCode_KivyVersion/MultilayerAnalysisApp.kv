@@ -1,20 +1,332 @@
 #:kivy 2.0.0
-BackgroundWidget:
-<BackgroundWidget@BoxLayout>:
-    BoxLayout:
-        orientation: 'vertical'
-        Button:
-            size_hint: 1, 0.5
-        Button:
-            size_hint: 1, 0.5
-        TextWidget:
+#:set middleLayerColor (0.17, 0.54, 0.62, 1)
+#:set bottomLayerColor (0.08, 0.26, 0.31, 1)
+#:set titleLayerColor (0.13, 0.40, 0.47, 1)
+#:set titleTextColor (0, 0, 0, 1)
+#:set inputBackgroundColor (1, 1, 1, 1)
+#:set inputTextColor (0, 0, 0, 1)
 
+MainLayout:
 
-
-<TextWidget@BoxLayout>:
+<LabelWidget>:
+    font_size: 15
+    color: inputTextColor
+    bold: True
+    canvas.before:
+        Color:
+            rgba: inputBackgroundColor
+        Rectangle:
+            size: self.size
+            pos: self.pos
+<TextInputWidget>:
+    font_size: 15
+    halign: 'center'
+    color: inputTextColor
+    multiline: False
+    on_validate: 
+<CheckBoxWidget>:
+    active: True
+<MaterialProperitiesInputLayout>:
+    orientation: 'vertical'
+    spacing: 2
     BoxLayout:
         orientation: 'horizontal'
+        size_hint_y: 1
+        spacing: 2
+        Label:
+            text: "Layer Codes - Refractive Indices"
+            font_size: 18
+            bold: True
+            size_hint_x: 1
+            canvas.before:
+                Color:
+                    rgba: titleLayerColor
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        Label:
+            text: "Thickness(nm) - Auto(On/Off)"
+            font_size: 18
+            bold: True
+            size_hint_x: 1
+            canvas.before:
+                Color:
+                    rgba: titleLayerColor
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 1
+        spacing: 2
+        LabelWidget:
+            size_hint_x: 1
+            text: "H"
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        CheckBoxWidget:
+            size_hint_x: 1
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 1
+        spacing: 2
+        LabelWidget:
+            size_hint_x: 1
+            text: "L"
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        CheckBoxWidget:
+            size_hint_x: 1
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 1
+        spacing: 2
+        LabelWidget:
+            size_hint_x: 1
+            text: "M"
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        CheckBoxWidget:
+            size_hint_x: 1
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 1
+        spacing: 2
+        LabelWidget:
+            size_hint_x: 1
+            text: "D"
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        CheckBoxWidget:
+            size_hint_x: 1
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 1
+        spacing: 2
+        LabelWidget:
+            size_hint_x: 1
+            text: "T"
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        CheckBoxWidget:
+            size_hint_x: 1
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 1
+        spacing: 2
+        LabelWidget:
+            size_hint_x: 1
+            text: "V"
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        CheckBoxWidget:
+            size_hint_x: 1
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 1
+        spacing: 2
+        LabelWidget:
+            size_hint_x: 1
+            text: "A"
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        CheckBoxWidget:
+            size_hint_x: 1
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 1
+        spacing: 2
+        LabelWidget:
+            size_hint_x: 1
+            text: "S"
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        TextInputWidget:
+            size_hint_x: 8
+            text: ""
+        CheckBoxWidget:
+            size_hint_x: 1
+
+<DesignWavelengthInputLayout>:
+    orientation: 'vertical'
+    spacing: 2
+    LabelWidget:
+        text: "Design Wavelength(nm)"
+    TextInputWidget:
+        text: ""
+        size_hint_x: 0.8
+        pos_hint: {'center_x': 0.5}
+<ThicknessDividerCoefficientLayout>:
+    orientation: 'vertical'
+    spacing: 2
+    LabelWidget:
+        text: "Thickness Divider - Auto"
+    TextInputWidget:
+        text: ""
+        size_hint_x: 0.8
+        pos_hint: {'center_x': 0.5}
+<WavelengthRangeLayout>:
+    orientation: 'vertical'
+    spacing: 2
+    LabelWidget:
+        text: "Wavelength Range(nm)"
+    BoxLayout:
+        orientation: 'horizontal'
+        TextInputWidget:
+            text: "400"
+        TextInputWidget:
+            text: "600"
+
+<StepSizeIn1nmLayout>:
+    orientation: 'vertical'
+    spacing: 2
+    LabelWidget:
+        text: "Step Size(nm) in 1nm"
+    TextInputWidget:
+        text: ""
+        size_hint_x: 0.8
+        pos_hint: {'center_x': 0.5}
+
+<MultilayerSequenceLayout>:
+    orientation: 'vertical'
+    spacing: 2
+    LabelWidget:
+        text: "Multilayer Sequence"
+        size_hint_x: 0.7
+        pos_hint: {'center_x': 0.5}
+    BoxLayout:
+        orientation: 'horizontal'
+        TextInputWidget:
+            text: "A"
+            size_hint_x: 1
+        TextInputWidget:
+            text: ""
+            size_hint_x: 12
+        TextInputWidget:
+            text: "D"
+            size_hint_x: 1
+
+<MainLayout>:
+    orientation: 'vertical'
+    padding: 10
+    spacing: 2
+    FloatLayout:
+        size_hint_y: 1.7
         Button:
-            size_hint: 1, 0.5
+            pos_hint: {'top': 1, 'x': 0}
+            background_disabled_normal: ''
+            background_color: middleLayerColor
+            disabled: True
+    FloatLayout:
+        size_hint_y: 12.0
         Button:
-            size_hint: 1, 0.5
+            pos_hint: {'top': 1, 'x': 0}
+            background_disabled_normal: ''
+            background_color: middleLayerColor
+            disabled: True
+        MaterialProperitiesInputLayout:
+            size_hint_x: 0.88
+            pos_hint: {'top': 1, 'center_x': 0.5}
+            padding: 5
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 2.5
+        spacing: 2
+        FloatLayout:
+            size_hint_x: 1
+            Button:
+                pos_hint: {'top': 1, 'x': 0}
+                background_disabled_normal: ''
+                background_color: middleLayerColor
+                disabled: True
+            DesignWavelengthInputLayout:
+                size_hint_x: 0.88
+                pos_hint: {'top': 1, 'center_x': 0.5}
+                padding: 5
+        FloatLayout:
+            size_hint_x: 1
+            Button:
+                pos_hint: {'top': 1, 'x': 0}
+                background_disabled_normal: ''
+                background_color: middleLayerColor
+                disabled: True
+            ThicknessDividerCoefficientLayout:
+                size_hint_x: 0.88
+                pos_hint: {'top': 1, 'center_x': 0.5}
+                padding: 5
+        FloatLayout:
+            size_hint_x: 1
+            Button:
+                pos_hint: {'top': 1, 'x': 0}
+                background_disabled_normal: ''
+                background_color: middleLayerColor
+                disabled: True
+            WavelengthRangeLayout:
+                size_hint_x: 0.88
+                pos_hint: {'top': 1, 'center_x': 0.5}
+                padding: 5
+        FloatLayout:
+            size_hint_x: 1
+            Button:
+                pos_hint: {'top': 1, 'x': 0}
+                background_disabled_normal: ''
+                background_color: middleLayerColor
+                disabled: True
+            StepSizeIn1nmLayout:
+                size_hint_x: 0.88
+                pos_hint: {'top': 1, 'center_x': 0.5}
+                padding: 5
+    FloatLayout:
+        size_hint_y: 2.5
+        Button:
+            pos_hint: {'top': 1, 'x': 0}
+            background_disabled_normal: ''
+            background_color: middleLayerColor
+            disabled: True
+        MultilayerSequenceLayout:
+            size_hint_x: 0.88
+            pos_hint: {'top': 1, 'center_x': 0.5}
+            padding: 5
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 1.3
+        spacing: 2
+        Button:
+            size_hint_x: 1
+            background_disabled_normal: ''
+            background_color: middleLayerColor
+            disabled: True
+        Button:
+            size_hint_x: 1
+            background_disabled_normal: ''
+            background_color: middleLayerColor
+            disabled: True
